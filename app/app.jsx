@@ -12,6 +12,11 @@ var Weather = require('Weather');
 var About = require('About');
 var Examples = require('Examples');
 
+//Load foundation for CSS. Need to chain loaders for css file, then apply to styles.
+require('style!css!foundation-sites/dist/css/foundation.min.css');
+//Use jQuery to start foundation
+$(document).foundation();
+
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
