@@ -14,13 +14,22 @@ module.exports = {
       //Successful call
       if (response.data.cod && response.data.message) {
         //Need to check the response actually has the data we want from this API
-        throw new Error(error.data.message);
+        //throw new Error(error.response.data.message);
+        throw new Error('Problem getting temperature for that city.');
       } else {
         return response.data.main.temp;
       }
     }, function(error) {
       //Error with call
-      throw new Error(error.data.message);
+      if (error.response) {
+        // The request was made, but the server responded with a status code
+        // that falls out of the range of 2xx
+        //throw new Error(error.response.data.message);
+        throw new Error('Problem getting weather for that city.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        throw new Error(error.message);
+      }
     })
   }
 }
