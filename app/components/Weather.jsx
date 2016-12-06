@@ -37,17 +37,17 @@ var Weather = React.createClass({
     //Nested function for conditional rendering
     function renderMessage() {
       if (isLoading) {
-        return <h3>Featching weather data...</h3>;
+        return <h3 className="text-center">Featching weather data...</h3>;
       } else if (temperature && location) {
         return <WeatherMessage location={location} temperature={temperature}/>;
       } else {
-        return <h3>Try searching for a city</h3>;
+        return <h3 className="text-center">Try searching for a city</h3>;
       }
     }
 
     return (
       <div>
-        <h3>Get Weather</h3>
+        <h1 className="text-center">Get Weather</h1>
         <WeatherForm onSearch={this.handleSearch}/>
         {renderMessage()}
       </div>

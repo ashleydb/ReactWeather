@@ -13,7 +13,7 @@ var React = require('react');
 // rewritten using arror functions from ES6. Also destructures the props inline.
 var WeatherMessage = ({location, temperature}) => {
   return (
-    <h3>The temperature in {location} is {temperature}F</h3>
+    <h3 className="text-center">The temperature in {location} is {temperature}F</h3>
   );
 }
 
