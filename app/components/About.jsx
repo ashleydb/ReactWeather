@@ -13,7 +13,7 @@ var React = require('react');
 var About = (props) => {
   return (
     <div>
-      <h1 className="text-center">About</h1>
+      <h1 className="text-center page-title">About</h1>
       <p>An example project using React for the web. Some resources:</p>
       <ol>
         <li><a href='https://www.udemy.com/the-complete-react-web-app-developer-course/'>The Complete React Web App Developer Course</a> - Course taken to learn React</li>
