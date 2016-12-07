@@ -11,8 +11,28 @@ var Weather = React.createClass({
       isLoading: false
     }
   },
+  componentDidMount: function() {
+    //Get a query parameter (query.location) from the page URL (this.props.location)
+    var location = this.props.location.query.location;
+    if (location && location.length > 0) {
+      this.handleSearch(location);
+      //Remove the query parameter so we don't repeat the search if we refresh, etc.
+      window.location.hash = '#/';
+    }
+  },
+  componentWillReceiveProps: function(newProps) {
+    //Get a query parameter (query.location) from the page URL (this.props.location)
+    var location = newProps.location.query.location;
+    if (location && location.length > 0) {
+      this.handleSearch(location);
+      //Remove the query parameter so we don't repeat the search if we refresh, etc.
+      window.location.hash = '#/';
+    }
+  },
   handleSearch: function(location) {
     this.setState({
+      location: undefined,
+      temperature: undefined,
       isLoading: true,
       errorMessage: undefined
     });
@@ -26,8 +46,6 @@ var Weather = React.createClass({
       });
     }, function(error) {
       that.setState({
-        location: undefined,
-        temperature: undefined,
         isLoading: false,
         errorMessage: error.message
       });

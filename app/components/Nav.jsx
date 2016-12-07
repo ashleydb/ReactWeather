@@ -7,7 +7,14 @@ var Nav = React.createClass({
   onFormSubmit: function(event) {
     //Don't refresh the whole page when the form button is clicked
     event.preventDefault();
-    alert(this.refs.location.value);
+    var location = this.refs.location.value;
+    if (location.length > 0) {
+      var encodedLocation = encodeURIComponent(location);
+      //Clear the search field in the form
+      this.refs.location.value = '';
+      //Redirect browser back to main component with a query parameter
+      window.location.hash = '#/?location=' + encodedLocation;
+    }
   },
   render: function() {
     return (
