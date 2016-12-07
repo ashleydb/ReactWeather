@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactDOMServer = require('react-dom/server');
 
 //Component with some logic, since we handle searches in the Nav bar.
 //Uses foundation for styling the elements.
@@ -13,13 +15,10 @@ var ErrorModal = React.createClass({
     message: React.PropTypes.string.isRequired
   },
   componentDidMount: function() {
-    //Use jQuery to get the modal element, then show it with foundation
-    var modal = new Foundation.Reveal($('#error-modal'));
-    modal.open();
-  },
-  render: function() {
+    //Instead of using render() for this, we move here since Foundation would otherwise
+    // modify the DOM, which React should be in charge of.
     var {title, message} = this.props;
-    return (
+    var modalMarkup = (
       <div className="reveal tiny text-center" id="error-modal" data-reveal="">
         <h4>{title}</h4>
         <p>{message}</p>
@@ -29,6 +28,21 @@ var ErrorModal = React.createClass({
           </button>
         </p>
       </div>
+    );
+
+    //Create a jQuery object we want to add to the DOM, which is the above React element
+    var $modal = $(ReactDOMServer.renderToString(modalMarkup));
+    //Find this component in the DOM, then add in some markup to display
+    $(ReactDOM.findDOMNode(this)).html($modal);
+
+    //Use jQuery to get the modal element, then show it with foundation
+    var modal = new Foundation.Reveal($('#error-modal'));
+    //This actually modifys the DOM, which is why we had to modify as above
+    modal.open();
+  },
+  render: function() {
+    return (
+      <div></div>
     );
   }
 });
